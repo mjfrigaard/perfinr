@@ -68,8 +68,149 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Small, tested functions for the calculations in the personal finance field manual: budgeting, savings, emergency funds, debt payoff, loans and mortgages, investing, retirement accounts, insurance, and federal income taxes.
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="perfinr">perfinr<a class="anchor" aria-label="anchor" href="#perfinr"></a>
+</h1></div>
+<!-- badges: start -->
+<!-- badges: end -->
+<p><code>perfinr</code> holds the tested, documented versions of the R functions in <a href="https://mjfrigaard.github.io/fm-finance/" class="external-link">Personal Finance: a field manual</a>. The book builds each calculation from scratch so you can see how the formula works. This package is for readers who want those same functions without copying code out of a chapter. It also suits anyone who wants small, transparent personal finance calculations in base R. The full documentation lives on the <a href="https://mjfrigaard.github.io/perfinr/">pkgdown site</a>.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p><code>perfinr</code> isn’t on CRAN. Install the development version from <a href="https://github.com/mjfrigaard/perfinr" class="external-link">GitHub</a>:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"mjfrigaard/perfinr"</span><span class="op">)</span></span></code></pre></div>
+<p><code>perfinr</code> has no dependencies beyond base R.</p>
+</div>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>The book’s first job example takes home $3,200 a month and pays $960 in rent. The question is how much of that paycheck rent claims.</p>
+<p>Think of take home pay as a single bar. Rent is one slice of it, and the rest of the bar is what’s left for everything else:</p>
+<p><img src="reference/figures/budgeting-pct-bar-model.png" alt="Bar model: one horizontal bar for $3,200 of monthly take home pay, split into a vermillion slice labeled Rent $960 and a bluish green slice labeled Remaining $2,240. The rent slice covers just under a third of the bar." width="100%"></p>
+<p><code><a href="reference/percent_of_income.html">percent_of_income()</a></code> divides the width of the slice by the width of the whole bar, then multiplies by 100:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mjfrigaard.github.io/perfinr/">perfinr</a></span><span class="op">)</span></span>
+<span><span class="va">rent_share</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/percent_of_income.html">percent_of_income</a></span><span class="op">(</span>expense <span class="op">=</span> <span class="fl">960</span>, income <span class="op">=</span> <span class="fl">3200</span><span class="op">)</span></span>
+<span><span class="va">rent_share</span></span>
+<span><span class="co">#&gt; [1] 30</span></span></code></pre></div>
+<p>Rent takes 30% of take home pay.</p>
+<div class="section level3">
+<h3 id="one-call-every-category">One call, every category<a class="anchor" aria-label="anchor" href="#one-call-every-category"></a>
+</h3>
+<p>Most functions are vectorized, so one call can compare several options. The code below passes every category from the book’s zero based budget to <code><a href="reference/percent_of_income.html">percent_of_income()</a></code> at once:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">budget</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rent"</span>, <span class="st">"groceries"</span>, <span class="st">"transport"</span>, <span class="st">"investments"</span>, <span class="st">"savings"</span>, <span class="st">"fun money"</span>, <span class="st">"other"</span><span class="op">)</span>,</span>
+<span>  amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">960</span>, <span class="fl">350</span>, <span class="fl">300</span>, <span class="fl">320</span>, <span class="fl">320</span>, <span class="fl">450</span>, <span class="fl">500</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">budget</span><span class="op">$</span><span class="va">percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="reference/percent_of_income.html">percent_of_income</a></span><span class="op">(</span>expense <span class="op">=</span> <span class="va">budget</span><span class="op">$</span><span class="va">amount</span>, income <span class="op">=</span> <span class="fl">3200</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">budget</span></span>
+<span><span class="co">#&gt;      category amount percent</span></span>
+<span><span class="co">#&gt; 1        rent    960    30.0</span></span>
+<span><span class="co">#&gt; 2   groceries    350    10.9</span></span>
+<span><span class="co">#&gt; 3   transport    300     9.4</span></span>
+<span><span class="co">#&gt; 4 investments    320    10.0</span></span>
+<span><span class="co">#&gt; 5     savings    320    10.0</span></span>
+<span><span class="co">#&gt; 6   fun money    450    14.1</span></span>
+<span><span class="co">#&gt; 7       other    500    15.6</span></span></code></pre></div>
+<p>Together the seven categories claim 100% of take home pay, so every dollar has a job.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="conventions">Conventions<a class="anchor" aria-label="anchor" href="#conventions"></a>
+</h2>
+<p>The functions keep the names, arguments, and defaults from the book, so code from a chapter runs unchanged after <code><a href="https://mjfrigaard.github.io/perfinr/">library(perfinr)</a></code>. A few rules hold across the whole package:</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Rule</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Rates and returns are decimals</td>
+<td>
+<code>0.07</code> is 7%</td>
+</tr>
+<tr>
+<td>
+<code><a href="reference/rule_of_72.html">rule_of_72()</a></code> is the exception and takes a percent</td>
+<td><code>rule_of_72(7)</code></td>
+</tr>
+<tr>
+<td>Ratio functions return percents</td>
+<td>
+<code>percent_of_income(960, 3200)</code> returns 30, not 0.3</td>
+</tr>
+<tr>
+<td>Most functions are vectorized</td>
+<td>
+<code>future_value(10000, 0.07, c(10, 20))</code> returns two values</td>
+</tr>
+<tr>
+<td>A few functions take single values only</td>
+<td>
+<code><a href="reference/income_tax.html">income_tax()</a></code>, <code><a href="reference/raise_kept.html">raise_kept()</a></code>, <code><a href="reference/payoff_vs_invest.html">payoff_vs_invest()</a></code>, <code><a href="reference/first_payment_split.html">first_payment_split()</a></code>
+</td>
+</tr>
+<tr>
+<td>A 0% rate returns the no interest answer</td>
+<td>
+<code>mortgage_payment(120000, 0, 30)</code> is <code>120000 / 360</code>
+</td>
+</tr>
+<tr>
+<td>Bad inputs stop early with an error</td>
+<td>text, <code>NA</code>, or a zero where a divisor is needed</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
+</h2>
+<p>The <a href="https://mjfrigaard.github.io/perfinr/articles/perfinr.html">Get started</a> vignette covers the conventions in more detail and takes a short tour of the book. Each chapter of the book also has its own vignette. It reuses the chapter’s numbers and bar models, then answers the same questions with <code>perfinr</code> functions. The chapter vignettes are grouped by book part.</p>
+<p>Foundations:</p>
+<ul>
+<li><a href="https://mjfrigaard.github.io/perfinr/articles/income.html">Income</a></li>
+<li><a href="https://mjfrigaard.github.io/perfinr/articles/tracking-spending.html">Tracking Spending</a></li>
+<li><a href="https://mjfrigaard.github.io/perfinr/articles/budgeting.html">Budgeting</a></li>
+<li><a href="https://mjfrigaard.github.io/perfinr/articles/managing-debt.html">Managing Debt</a></li>
+<li><a href="https://mjfrigaard.github.io/perfinr/articles/emergency-fund.html">Emergency Fund</a></li>
+</ul>
+<p>The vignettes for the other four parts are still in progress.</p>
+<p>Savings:</p>
+<ul>
+<li>Savings Strategies</li>
+<li>High-Yield Savings Accounts</li>
+<li>Automating Savings</li>
+</ul>
+<p>Investing:</p>
+<ul>
+<li>Investing Basics</li>
+<li>Retirement Accounts</li>
+<li>Index Funds</li>
+<li>Asset Allocation</li>
+</ul>
+<p>Taxes and insurance:</p>
+<ul>
+<li>Taxes</li>
+<li>Insurance</li>
+</ul>
+<p>Planning:</p>
+<ul>
+<li>Financial Goals</li>
+<li>Major Purchases</li>
+<li>Estate Planning</li>
+</ul>
+<p>Every function, its arguments, and its examples are listed in the <a href="https://mjfrigaard.github.io/perfinr/reference/">function reference</a>.</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
