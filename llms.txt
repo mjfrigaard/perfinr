@@ -1,0 +1,178 @@
+Small, tested functions for the calculations in the personal finance
+field manual: budgeting, savings, emergency funds, debt payoff, loans
+and mortgages, investing, retirement accounts, insurance, and federal
+income taxes.
+
+# Package index
+
+## Foundations
+
+### Income
+
+- [`fixed_cost_ratio()`](https://mjfrigaard.github.io/perfinr/reference/fixed_cost_ratio.md)
+  : Fixed costs as a percent of take home pay
+- [`raise_invested_value()`](https://mjfrigaard.github.io/perfinr/reference/raise_invested_value.md)
+  : Future value of investing part of a raise
+- [`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md)
+  : Wealth from saving part of an income every year
+
+### Tracking spending
+
+- [`apply_rules()`](https://mjfrigaard.github.io/perfinr/reference/apply_rules.md)
+  : Categorize transactions with keyword rules
+- [`subscription_opportunity_cost()`](https://mjfrigaard.github.io/perfinr/reference/subscription_opportunity_cost.md)
+  : What a subscription would grow to if invested instead
+
+### Budgeting
+
+- [`months_to_break_even()`](https://mjfrigaard.github.io/perfinr/reference/months_to_break_even.md)
+  : Months until an upfront cost pays for itself
+- [`opportunity_cost()`](https://mjfrigaard.github.io/perfinr/reference/opportunity_cost.md)
+  : What money spent today could grow to
+- [`percent_of_income()`](https://mjfrigaard.github.io/perfinr/reference/percent_of_income.md)
+  : Expense as a percent of income
+- [`to_annual()`](https://mjfrigaard.github.io/perfinr/reference/to_annual.md)
+  : Convert a daily, weekly, or monthly amount to a yearly amount
+- [`to_monthly()`](https://mjfrigaard.github.io/perfinr/reference/to_monthly.md)
+  : Convert a daily, weekly, or yearly amount to a monthly amount
+
+### Managing debt
+
+- [`apr_to_apy()`](https://mjfrigaard.github.io/perfinr/reference/apr_to_apy.md)
+  : Convert an APR to an APY
+- [`credit_utilization()`](https://mjfrigaard.github.io/perfinr/reference/credit_utilization.md)
+  : Credit utilization
+- [`dti_ratio()`](https://mjfrigaard.github.io/perfinr/reference/dti_ratio.md)
+  : Debt to income (DTI) ratio
+- [`idr_monthly_payment()`](https://mjfrigaard.github.io/perfinr/reference/idr_monthly_payment.md)
+  : Income driven repayment (IDR) monthly payment
+- [`loan_income_ratio()`](https://mjfrigaard.github.io/perfinr/reference/loan_income_ratio.md)
+  : Student loan total relative to expected salary
+- [`monthly_standard_payment()`](https://mjfrigaard.github.io/perfinr/reference/monthly_standard_payment.md)
+  : Monthly payment on a standard student loan plan
+- [`months_to_payoff()`](https://mjfrigaard.github.io/perfinr/reference/months_to_payoff.md)
+  : Months to pay off a balance with a fixed payment
+- [`order_avalanche()`](https://mjfrigaard.github.io/perfinr/reference/order_avalanche.md)
+  : Order debts for the avalanche method
+- [`order_snowball()`](https://mjfrigaard.github.io/perfinr/reference/order_snowball.md)
+  : Order debts for the snowball method
+- [`payoff_vs_invest()`](https://mjfrigaard.github.io/perfinr/reference/payoff_vs_invest.md)
+  : Pay off a loan or invest the difference
+- [`total_interest()`](https://mjfrigaard.github.io/perfinr/reference/total_interest.md)
+  : Total interest paid over a loan
+
+### Emergency fund
+
+- [`ef_growth()`](https://mjfrigaard.github.io/perfinr/reference/ef_growth.md)
+  : Emergency fund balance after interest
+- [`emergency_fund_target()`](https://mjfrigaard.github.io/perfinr/reference/emergency_fund_target.md)
+  : Emergency fund target
+- [`monthly_contribution_needed()`](https://mjfrigaard.github.io/perfinr/reference/monthly_contribution_needed.md)
+  : Monthly contribution needed to reach a target by a deadline
+- [`months_to_ef_goal()`](https://mjfrigaard.github.io/perfinr/reference/months_to_ef_goal.md)
+  : Months to reach an emergency fund target
+
+## Savings
+
+### Savings strategies
+
+- [`savings_rate()`](https://mjfrigaard.github.io/perfinr/reference/savings_rate.md)
+  : Savings rate
+
+### High yield accounts
+
+- [`hysa_balance()`](https://mjfrigaard.github.io/perfinr/reference/hysa_balance.md)
+  : High yield savings account balance
+
+### Automating savings
+
+- [`monthly_savings()`](https://mjfrigaard.github.io/perfinr/reference/monthly_savings.md)
+  : Monthly savings at a given savings rate
+
+## Investing
+
+### Investing basics
+
+- [`future_value()`](https://mjfrigaard.github.io/perfinr/reference/future_value.md)
+  : Future value of a one time investment
+- [`future_value_series()`](https://mjfrigaard.github.io/perfinr/reference/future_value_series.md)
+  : Future value of a series of equal contributions
+- [`real_return()`](https://mjfrigaard.github.io/perfinr/reference/real_return.md)
+  : Return after inflation
+- [`rule_of_72()`](https://mjfrigaard.github.io/perfinr/reference/rule_of_72.md)
+  : Years for money to double (rule of 72)
+
+### Retirement accounts
+
+- [`after_tax_value()`](https://mjfrigaard.github.io/perfinr/reference/after_tax_value.md)
+  : After tax value of a retirement contribution
+- [`employer_match()`](https://mjfrigaard.github.io/perfinr/reference/employer_match.md)
+  : Yearly employer retirement match
+
+### Index funds
+
+- [`future_value_after_fees()`](https://mjfrigaard.github.io/perfinr/reference/future_value_after_fees.md)
+  : Future value of monthly contributions after fund fees
+- [`yearly_fee()`](https://mjfrigaard.github.io/perfinr/reference/yearly_fee.md)
+  : Yearly fund fee
+
+### Asset allocation
+
+- [`portfolio_return()`](https://mjfrigaard.github.io/perfinr/reference/portfolio_return.md)
+  : Blended return of a stock and bond portfolio
+- [`rebalance_amount()`](https://mjfrigaard.github.io/perfinr/reference/rebalance_amount.md)
+  : Amount to move to get back to a target allocation
+
+## Taxes and insurance
+
+### Taxes
+
+- [`income_tax()`](https://mjfrigaard.github.io/perfinr/reference/income_tax.md)
+  : Federal income tax for a single filer
+- [`raise_kept()`](https://mjfrigaard.github.io/perfinr/reference/raise_kept.md)
+  : Part of a raise kept after federal income tax
+
+### Insurance
+
+- [`break_even_years()`](https://mjfrigaard.github.io/perfinr/reference/break_even_years.md)
+  : Years for a higher deductible to pay off
+- [`plan_cost()`](https://mjfrigaard.github.io/perfinr/reference/plan_cost.md)
+  : Total yearly cost of a health plan
+
+## Planning
+
+### Financial goals
+
+- [`monthly_for_goal()`](https://mjfrigaard.github.io/perfinr/reference/monthly_for_goal.md)
+  : Monthly deposit needed to reach a savings goal
+- [`months_to_fund()`](https://mjfrigaard.github.io/perfinr/reference/months_to_fund.md)
+  : Months to fund a goal with a fixed monthly amount
+
+### Major purchases
+
+- [`first_payment_split()`](https://mjfrigaard.github.io/perfinr/reference/first_payment_split.md)
+  : Interest and principal in the first loan payment
+- [`mortgage_payment()`](https://mjfrigaard.github.io/perfinr/reference/mortgage_payment.md)
+  : Monthly payment on a fixed rate loan
+- [`rent_buy_threshold()`](https://mjfrigaard.github.io/perfinr/reference/rent_buy_threshold.md)
+  : Monthly rent that matches the unrecoverable cost of owning
+
+### Estate planning
+
+- [`beneficiary_share()`](https://mjfrigaard.github.io/perfinr/reference/beneficiary_share.md)
+  : Share of assets with a named beneficiary
+- [`net_worth()`](https://mjfrigaard.github.io/perfinr/reference/net_worth.md)
+  : Net worth
+
+# Articles
+
+### Foundations
+
+- [Income](https://mjfrigaard.github.io/perfinr/articles/income.md):
+- [Tracking
+  Spending](https://mjfrigaard.github.io/perfinr/articles/tracking-spending.md):
+- [Budgeting](https://mjfrigaard.github.io/perfinr/articles/budgeting.md):
+- [Managing
+  Debt](https://mjfrigaard.github.io/perfinr/articles/managing-debt.md):
+- [Emergency
+  Fund](https://mjfrigaard.github.io/perfinr/articles/emergency-fund.md):
