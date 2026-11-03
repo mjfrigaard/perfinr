@@ -1,0 +1,90 @@
+url: https://mjfrigaard.github.io/perfinr/
+
+template:
+  bootstrap: 5
+  light-switch: true
+  theme: arrow-light
+  theme-dark: arrow-dark
+  bslib:
+    bg: "#FBF6E9"          # cream tint: page background (light)
+    fg: "#3E2A1E"          # chocolate brown: body text (light)
+    primary: "#2A6F77"     # teal: links, buttons, navbar
+    secondary: "#1B2A41"   # midnight navy: neutral emphasis
+    success: "#5B8C5A"     # avocado green
+    info: "#2A6F77"        # teal
+    warning: "#E8A33D"     # harvest gold
+    danger: "#B83A4B"      # brick red
+    base_font:
+      google: Ubuntu
+    heading_font:
+      google: Fira Sans Condensed
+    code_font:
+      google: Ubuntu Mono
+
+articles:
+- title: Foundations
+  navbar: Foundations
+  contents:
+  - income
+  - tracking-spending
+  - budgeting
+  - managing-debt
+  - emergency-fund
+
+reference:
+- title: Foundations
+- subtitle: Income
+  contents:
+  - has_concept("income")
+- subtitle: Tracking spending
+  contents:
+  - has_concept("tracking spending")
+- subtitle: Budgeting
+  contents:
+  - has_concept("budgeting")
+- subtitle: Managing debt
+  contents:
+  - has_concept("managing debt")
+- subtitle: Emergency fund
+  contents:
+  - has_concept("emergency fund")
+- title: Savings
+- subtitle: Savings strategies
+  contents:
+  - has_concept("savings strategies")
+- subtitle: High yield accounts
+  contents:
+  - has_concept("high yield accounts")
+- subtitle: Automating savings
+  contents:
+  - has_concept("automating savings")
+- title: Investing
+- subtitle: Investing basics
+  contents:
+  - has_concept("investing basics")
+- subtitle: Retirement accounts
+  contents:
+  - has_concept("retirement accounts")
+- subtitle: Index funds
+  contents:
+  - has_concept("index funds")
+- subtitle: Asset allocation
+  contents:
+  - has_concept("asset allocation")
+- title: Taxes and insurance
+- subtitle: Taxes
+  contents:
+  - has_concept("taxes")
+- subtitle: Insurance
+  contents:
+  - has_concept("insurance")
+- title: Planning
+- subtitle: Financial goals
+  contents:
+  - has_concept("financial goals")
+- subtitle: Major purchases
+  contents:
+  - has_concept("major purchases")
+- subtitle: Estate planning
+  contents:
+  - has_concept("estate planning")

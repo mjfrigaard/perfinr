@@ -1,0 +1,108 @@
+// 70s palette (~/notes/mv/reference/70s-color-palette.md) ----
+$harvest-gold:  #E8A33D;
+$burnt-orange:  #D2562B;
+$avocado:       #5B8C5A;
+$teal:          #2A6F77;
+$midnight-navy: #1B2A41;
+$brick-red:     #B83A4B;
+$cream:         #F2E6C2;
+$chocolate:     #3E2A1E;
+
+// tints and shades of the palette
+$cream-tint:    #FBF6E9;  // light page background
+$navy-shade:    #142033;  // dark code background
+
+// light mode ----
+
+// teal navbar with cream text
+.navbar {
+  background-color: $teal !important;
+
+  .navbar-brand,
+  .nav-link,
+  .navbar-text {
+    color: $cream !important;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus {
+    color: $harvest-gold !important;
+  }
+
+  .nav-text {
+    color: $cream !important;
+    opacity: 0.8;
+  }
+}
+
+// inline code: cream background, chocolate text
+:not(pre) > code {
+  background-color: $cream;
+  color: $chocolate;
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+}
+
+// code blocks: cream container; token colors come from arrow-light
+pre {
+  background-color: $cream !important;
+  border-color: rgba($chocolate, 0.15);
+}
+
+pre code {
+  background-color: transparent !important;
+  padding: 0;
+}
+
+// burnt orange accent on link hover
+a:hover {
+  color: $burnt-orange;
+  text-decoration-color: $burnt-orange;
+}
+
+// bar model images keep their white background; frame them
+main img {
+  border-radius: 6px;
+  border: 1px solid rgba($chocolate, 0.15);
+}
+
+// dark mode ----
+[data-bs-theme="dark"] {
+  --bs-body-bg: #{$midnight-navy};
+  --bs-body-bg-rgb: 27, 42, 65;
+  --bs-body-color: #{$cream};
+  --bs-body-color-rgb: 242, 230, 194;
+  --bs-emphasis-color: #{$cream};
+  --bs-heading-color: #{$harvest-gold};
+  --bs-secondary-color: #{rgba($cream, 0.75)};
+  --bs-tertiary-bg: #{$navy-shade};
+  --bs-border-color: #{rgba($cream, 0.2)};
+  --bs-link-color: #{$harvest-gold};
+  --bs-link-color-rgb: 232, 163, 61;
+  --bs-link-hover-color: #{$cream};
+  --bs-link-hover-color-rgb: 242, 230, 194;
+  --bs-code-color: #{$cream};
+
+  .navbar {
+    background-color: $chocolate !important;
+  }
+
+  :not(pre) > code {
+    background-color: $navy-shade;
+    color: $cream;
+  }
+
+  pre {
+    background-color: $navy-shade !important;
+    border-color: rgba($cream, 0.2);
+  }
+
+  a:hover {
+    color: $cream;
+    text-decoration-color: $cream;
+  }
+
+  main img {
+    border-color: rgba($cream, 0.2);
+  }
+}

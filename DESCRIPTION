@@ -1,0 +1,25 @@
+Package: perfinr
+Type: Package
+Title: Personal Finance Calculations for the Field Manual
+Version: 0.0.0.9000
+Authors@R: 
+    person("Martin", "Frigaard", , "mjfrigaard@pm.me", role = c("aut", "cre"))
+Description: Small, tested functions for the calculations in the personal
+    finance field manual: budgeting, savings, emergency funds, debt payoff,
+    loans and mortgages, investing, retirement accounts, insurance, and
+    federal income taxes.
+License: MIT + file LICENSE
+URL: https://mjfrigaard.github.io/perfinr/, https://github.com/mjfrigaard/perfinr
+BugReports: https://github.com/mjfrigaard/perfinr/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    ggplot2,
+    knitr,
+    quarto,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.1
+VignetteBuilder: quarto
+SystemRequirements: Quarto command line tool
+    (<https://github.com/quarto-dev/quarto-cli>).
