@@ -13,6 +13,7 @@ chapter.
 | [`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md) | the balance after saving part of a yearly income every year | dollars; rates go in as decimals |
 | [`fixed_cost_ratio()`](https://mjfrigaard.github.io/perfinr/reference/fixed_cost_ratio.md) | monthly fixed costs as a share of take home pay | percent (`55`, not `0.55`) |
 | [`raise_invested_value()`](https://mjfrigaard.github.io/perfinr/reference/raise_invested_value.md) | the balance after investing part of a monthly raise every month | dollars; rates go in as decimals |
+| [`pay_periods_per_year()`](https://mjfrigaard.github.io/perfinr/reference/pay_periods_per_year.md) | how many paychecks a pay frequency produces in a year | a whole number |
 
 The units follow the package conventions described in
 [perfinr](https://mjfrigaard.github.io/perfinr/articles/perfinr.md):
@@ -161,6 +162,45 @@ Basics](https://mjfrigaard.github.io/perfinr/articles/investing-basics.md)
 vignette returns to this future value of contributions formula with
 [`future_value_series()`](https://mjfrigaard.github.io/perfinr/reference/future_value_series.md).
 
+## How many paychecks are in a year?
+
+The examples above start from a yearly or monthly figure, but pay
+arrives on a schedule. Turning one paycheck into a yearly income takes
+the right count of pay periods, and the obvious guess is often wrong. A
+biweekly paycheck comes 26 times a year, not 24:
+
+``` r
+
+pay_periods_per_year("biweekly")
+#> [1] 26
+2500 * pay_periods_per_year("biweekly")
+#> [1] 65000
+```
+
+Two months a year bring a third paycheck, so \$2,500 every two weeks is
+\$65,000 a year, not \$60,000.
+[`pay_period_days()`](https://mjfrigaard.github.io/perfinr/reference/pay_period_days.md)
+and
+[`pay_period_full_time_hours()`](https://mjfrigaard.github.io/perfinr/reference/pay_period_full_time_hours.md)
+describe one period: its length in days and the hours a 40-hour week
+puts in it.
+[`pay_frequency_from_days()`](https://mjfrigaard.github.io/perfinr/reference/pay_frequency_from_days.md)
+goes the other way, from a period length back to its frequency:
+
+``` r
+
+pay_period_days("semimonthly")
+#> [1] 15
+pay_period_full_time_hours("biweekly")
+#> [1] 80
+pay_frequency_from_days(14)
+#> [1] "biweekly"
+```
+
+The day counts are round numbers for display. Annualize with
+[`pay_periods_per_year()`](https://mjfrigaard.github.io/perfinr/reference/pay_periods_per_year.md),
+never with `365 / pay_period_days()`.
+
 ## Variations
 
 Both growth functions are vectorized, so we can compare options in one
@@ -304,8 +344,10 @@ Time does more of the work than the deposits do.
 [`fixed_cost_ratio()`](https://mjfrigaard.github.io/perfinr/reference/fixed_cost_ratio.md)
 tells you how much of each paycheck is committed before you spend
 anything, and returns a percent you can compare against the 60% ceiling.
-Together they make the chapter’s advice measurable: keep fixed costs
-low, and invest part of every raise before your lifestyle absorbs it.
+[`pay_periods_per_year()`](https://mjfrigaard.github.io/perfinr/reference/pay_periods_per_year.md)
+turns a single paycheck into a yearly income. Together they make the
+chapter’s advice measurable: keep fixed costs low, and invest part of
+every raise before your lifestyle absorbs it.
 
 - [Income](https://mjfrigaard.github.io/fm-finance/income.html) chapter
   of the book

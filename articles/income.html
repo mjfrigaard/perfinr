@@ -112,6 +112,11 @@
 <td>the balance after investing part of a monthly raise every month</td>
 <td>dollars; rates go in as decimals</td>
 </tr>
+<tr class="even">
+<td><code><a href="../reference/pay_periods_per_year.html">pay_periods_per_year()</a></code></td>
+<td>how many paychecks a pay frequency produces in a year</td>
+<td>a whole number</td>
+</tr>
 </tbody>
 </table>
 <p>The units follow the package conventions described in <a href="perfinr.html">perfinr</a>: rates go in as decimals and ratios come out as percents.</p>
@@ -193,11 +198,32 @@
 <span><span class="co">#&gt; [1] 162014.3</span></span></code></pre></div>
 </div>
 <p>Half of the raise grows to about $162,014. The contributions add up to $60,000, so growth adds about $102,014. The <a href="investing-basics.html">Investing Basics</a> vignette returns to this future value of contributions formula with <code><a href="../reference/future_value_series.html">future_value_series()</a></code>.</p>
+</section><section class="level2"><h2 id="how-many-paychecks-are-in-a-year">How many paychecks are in a year?<a class="anchor" aria-label="anchor" href="#how-many-paychecks-are-in-a-year"></a>
+</h2>
+<p>The examples above start from a yearly or monthly figure, but pay arrives on a schedule. Turning one paycheck into a yearly income takes the right count of pay periods, and the obvious guess is often wrong. A biweekly paycheck comes 26 times a year, not 24:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pay_periods_per_year.html">pay_periods_per_year</a></span><span class="op">(</span><span class="st">"biweekly"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 26</span></span>
+<span><span class="fl">2500</span> <span class="op">*</span> <span class="fu"><a href="../reference/pay_periods_per_year.html">pay_periods_per_year</a></span><span class="op">(</span><span class="st">"biweekly"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 65000</span></span></code></pre></div>
+</div>
+<p>Two months a year bring a third paycheck, so $2,500 every two weeks is $65,000 a year, not $60,000. <code><a href="../reference/pay_period_days.html">pay_period_days()</a></code> and <code><a href="../reference/pay_period_full_time_hours.html">pay_period_full_time_hours()</a></code> describe one period: its length in days and the hours a 40-hour week puts in it. <code><a href="../reference/pay_frequency_from_days.html">pay_frequency_from_days()</a></code> goes the other way, from a period length back to its frequency:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pay_period_days.html">pay_period_days</a></span><span class="op">(</span><span class="st">"semimonthly"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 15</span></span>
+<span><span class="fu"><a href="../reference/pay_period_full_time_hours.html">pay_period_full_time_hours</a></span><span class="op">(</span><span class="st">"biweekly"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 80</span></span>
+<span><span class="fu"><a href="../reference/pay_frequency_from_days.html">pay_frequency_from_days</a></span><span class="op">(</span><span class="fl">14</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "biweekly"</span></span></code></pre></div>
+</div>
+<p>The day counts are round numbers for display. Annualize with <code><a href="../reference/pay_periods_per_year.html">pay_periods_per_year()</a></code>, never with <code>365 / pay_period_days()</code>.</p>
 </section><section class="level2"><h2 id="variations">Variations<a class="anchor" aria-label="anchor" href="#variations"></a>
 </h2>
 <p>Both growth functions are vectorized, so we can compare options in one call. The savings rate is the stoicism lever in Galloway’s formula. The code below keeps the income, return, and horizon from the first section and changes only the share saved:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.10</span>, <span class="fl">0.15</span>, <span class="fl">0.20</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  savings_rate <span class="op">=</span> <span class="va">rates</span>,</span>
@@ -216,7 +242,7 @@
 </div>
 <p>The same idea works for the raise. Here is the $400 raise with a quarter, half, three quarters, and all of it invested:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shares</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  invest_share <span class="op">=</span> <span class="va">shares</span>,</span>
@@ -254,7 +280,7 @@
 </h2>
 <p>The worker from the fixed cost section gets the $400 raise. Investing half is the easy part; the real question is where the lifestyle half goes. If it stays flexible (dinners, trips), fixed costs don’t change. If it goes to a pricier apartment, fixed costs rise by the full lifestyle half. The code below compares the fixed cost ratio before the raise and under both choices:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_take_home</span> <span class="op">&lt;-</span> <span class="va">take_home</span> <span class="op">+</span> <span class="va">raise</span></span>
 <span><span class="va">plans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  plan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"before the raise"</span>, <span class="st">"lifestyle half stays flexible"</span>, <span class="st">"lifestyle half goes to rent"</span><span class="op">)</span>,</span>
@@ -274,7 +300,7 @@
 <p>Keeping the lifestyle half flexible drops the ratio to 48.9%. Moving it into rent leaves the ratio at 54.4%, almost where it started, so the raise buys very little breathing room. This is the lifestyle inflation the chapter warns about: the upgrade becomes a permanent bill.</p>
 <p>The invested half grows the same way in both plans. The code below values it twice: once with monthly deposits, and once with a single deposit at the end of each year. The yearly version uses <code><a href="../reference/wealth_formula.html">wealth_formula()</a></code>, whose <code>median_income</code> argument accepts any yearly amount:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">monthly_value</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/raise_invested_value.html">raise_invested_value</a></span><span class="op">(</span></span>
 <span>  monthly_raise <span class="op">=</span> <span class="va">raise</span>,</span>
 <span>  invest_share <span class="op">=</span> <span class="va">share</span>,</span>
@@ -294,7 +320,7 @@
 <p>The same dollars come out about $10,217 ahead when they’re invested every month. Each monthly deposit starts growing sooner, which is one more reason to automate the transfer the day the raise arrives.</p>
 </section><section class="level2"><h2 id="recap">Recap<a class="anchor" aria-label="anchor" href="#recap"></a>
 </h2>
-<p><code><a href="../reference/wealth_formula.html">wealth_formula()</a></code> and <code><a href="../reference/raise_invested_value.html">raise_invested_value()</a></code> show how a steady deposit turns into a balance that is mostly growth. Time does more of the work than the deposits do. <code><a href="../reference/fixed_cost_ratio.html">fixed_cost_ratio()</a></code> tells you how much of each paycheck is committed before you spend anything, and returns a percent you can compare against the 60% ceiling. Together they make the chapter’s advice measurable: keep fixed costs low, and invest part of every raise before your lifestyle absorbs it.</p>
+<p><code><a href="../reference/wealth_formula.html">wealth_formula()</a></code> and <code><a href="../reference/raise_invested_value.html">raise_invested_value()</a></code> show how a steady deposit turns into a balance that is mostly growth. Time does more of the work than the deposits do. <code><a href="../reference/fixed_cost_ratio.html">fixed_cost_ratio()</a></code> tells you how much of each paycheck is committed before you spend anything, and returns a percent you can compare against the 60% ceiling. <code><a href="../reference/pay_periods_per_year.html">pay_periods_per_year()</a></code> turns a single paycheck into a yearly income. Together they make the chapter’s advice measurable: keep fixed costs low, and invest part of every raise before your lifestyle absorbs it.</p>
 <ul>
 <li>
 <a href="https://mjfrigaard.github.io/fm-finance/income.html" class="external-link">Income</a> chapter of the book</li>

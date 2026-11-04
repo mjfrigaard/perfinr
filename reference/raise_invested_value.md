@@ -35,6 +35,10 @@ A numeric vector of ending balances.
 
 Other income:
 [`fixed_cost_ratio()`](https://mjfrigaard.github.io/perfinr/reference/fixed_cost_ratio.md),
+[`pay_frequency_from_days()`](https://mjfrigaard.github.io/perfinr/reference/pay_frequency_from_days.md),
+[`pay_period_days()`](https://mjfrigaard.github.io/perfinr/reference/pay_period_days.md),
+[`pay_period_full_time_hours()`](https://mjfrigaard.github.io/perfinr/reference/pay_period_full_time_hours.md),
+[`pay_periods_per_year()`](https://mjfrigaard.github.io/perfinr/reference/pay_periods_per_year.md),
 [`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md)
 
 ## Examples

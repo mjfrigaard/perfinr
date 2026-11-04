@@ -153,6 +153,14 @@ Every function, its arguments, and its examples are listed in the
 
 - [`fixed_cost_ratio()`](https://mjfrigaard.github.io/perfinr/reference/fixed_cost_ratio.md)
   : Fixed costs as a percent of take home pay
+- [`pay_frequency_from_days()`](https://mjfrigaard.github.io/perfinr/reference/pay_frequency_from_days.md)
+  : The pay frequency for a period length in days
+- [`pay_period_days()`](https://mjfrigaard.github.io/perfinr/reference/pay_period_days.md)
+  : Days in one pay period
+- [`pay_period_full_time_hours()`](https://mjfrigaard.github.io/perfinr/reference/pay_period_full_time_hours.md)
+  : Full-time hours in one pay period
+- [`pay_periods_per_year()`](https://mjfrigaard.github.io/perfinr/reference/pay_periods_per_year.md)
+  : Paychecks in a year for a pay frequency
 - [`raise_invested_value()`](https://mjfrigaard.github.io/perfinr/reference/raise_invested_value.md)
   : Future value of investing part of a raise
 - [`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md)
