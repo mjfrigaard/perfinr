@@ -26,6 +26,7 @@ A bigger paycheck only builds wealth if some of it stays put. The book's [Income
 | `wealth_formula()` | the balance after saving part of a yearly income every year | dollars; rates go in as decimals |
 | `fixed_cost_ratio()` | monthly fixed costs as a share of take home pay | percent (`55`, not `0.55`) |
 | `raise_invested_value()` | the balance after investing part of a monthly raise every month | dollars; rates go in as decimals |
+| `pay_periods_per_year()` | how many paychecks a pay frequency produces in a year | a whole number |
 
 The units follow the package conventions described in [perfinr](perfinr.html): rates go in as decimals and ratios come out as percents.
 
@@ -115,6 +116,27 @@ raise_value
 ```
 
 Half of the raise grows to about \$`r formatC(round(raise_value), format = "d", big.mark = ",")`. The contributions add up to \$`r formatC(raise * share * 12 * raise_years, format = "d", big.mark = ",")`, so growth adds about \$`r formatC(round(raise_value - raise * share * 12 * raise_years), format = "d", big.mark = ",")`. The [Investing Basics](investing-basics.html) vignette returns to this future value of contributions formula with `future_value_series()`.
+
+## How many paychecks are in a year?
+
+The examples above start from a yearly or monthly figure, but pay arrives on a schedule. Turning one paycheck into a yearly income takes the right count of pay periods, and the obvious guess is often wrong. A biweekly paycheck comes 26 times a year, not 24:
+
+```{r}
+#| label: pay-periods
+pay_periods_per_year("biweekly")
+2500 * pay_periods_per_year("biweekly")
+```
+
+Two months a year bring a third paycheck, so \$2,500 every two weeks is \$65,000 a year, not \$60,000. `pay_period_days()` and `pay_period_full_time_hours()` describe one period: its length in days and the hours a 40-hour week puts in it. `pay_frequency_from_days()` goes the other way, from a period length back to its frequency:
+
+```{r}
+#| label: pay-period-length
+pay_period_days("semimonthly")
+pay_period_full_time_hours("biweekly")
+pay_frequency_from_days(14)
+```
+
+The day counts are round numbers for display. Annualize with `pay_periods_per_year()`, never with `365 / pay_period_days()`.
 
 ## Variations
 
@@ -208,7 +230,7 @@ The same dollars come out about \$`r formatC(round(monthly_value - yearly_value)
 
 ## Recap
 
-`wealth_formula()` and `raise_invested_value()` show how a steady deposit turns into a balance that is mostly growth. Time does more of the work than the deposits do. `fixed_cost_ratio()` tells you how much of each paycheck is committed before you spend anything, and returns a percent you can compare against the `r ceiling_pct`% ceiling. Together they make the chapter's advice measurable: keep fixed costs low, and invest part of every raise before your lifestyle absorbs it.
+`wealth_formula()` and `raise_invested_value()` show how a steady deposit turns into a balance that is mostly growth. Time does more of the work than the deposits do. `fixed_cost_ratio()` tells you how much of each paycheck is committed before you spend anything, and returns a percent you can compare against the `r ceiling_pct`% ceiling. `pay_periods_per_year()` turns a single paycheck into a yearly income. Together they make the chapter's advice measurable: keep fixed costs low, and invest part of every raise before your lifestyle absorbs it.
 
 * [Income](https://mjfrigaard.github.io/fm-finance/income.html) chapter of the book
 * `wealth_formula()`

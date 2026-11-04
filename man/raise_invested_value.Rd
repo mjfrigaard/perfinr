@@ -30,6 +30,10 @@ raise_invested_value(200, invest_share = 0.5, rate = 0.07, years = 30)
 \seealso{
 Other income:
 \code{\link[=fixed_cost_ratio]{fixed_cost_ratio()}},
+\code{\link[=pay_frequency_from_days]{pay_frequency_from_days()}},
+\code{\link[=pay_period_days]{pay_period_days()}},
+\code{\link[=pay_period_full_time_hours]{pay_period_full_time_hours()}},
+\code{\link[=pay_periods_per_year]{pay_periods_per_year()}},
 \code{\link[=wealth_formula]{wealth_formula()}}
 }
 \concept{income}

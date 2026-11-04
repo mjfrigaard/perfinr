@@ -23,6 +23,10 @@ fixed_cost_ratio(fixed_costs = 1800, take_home = 3200)
 }
 \seealso{
 Other income:
+\code{\link[=pay_frequency_from_days]{pay_frequency_from_days()}},
+\code{\link[=pay_period_days]{pay_period_days()}},
+\code{\link[=pay_period_full_time_hours]{pay_period_full_time_hours()}},
+\code{\link[=pay_periods_per_year]{pay_periods_per_year()}},
 \code{\link[=raise_invested_value]{raise_invested_value()}},
 \code{\link[=wealth_formula]{wealth_formula()}}
 }
