@@ -1,52 +1,61 @@
-// 70s palette (~/notes/mv/reference/70s-color-palette.md) ----
-$harvest-gold:  #E8A33D;
-$burnt-orange:  #D2562B;
-$avocado:       #5B8C5A;
-$teal:          #2A6F77;
-$midnight-navy: #1B2A41;
-$brick-red:     #B83A4B;
-$cream:         #F2E6C2;
-$chocolate:     #3E2A1E;
+// Shared light/dark theme for app-package sites (70s palette).
+// Colors come from _pkgdown.yml; this file adds what bslib variables can't.
 
-// tints and shades of the palette
-$cream-tint:    #FBF6E9;  // light page background
-$navy-shade:    #142033;  // dark code background
+$gold:   #E8A33D;
+$orange: #D2562B;
+$brick:  #B83A4B;
 
-// light mode ----
-
-// teal navbar with cream text
-.navbar {
-  background-color: $teal !important;
-
-  .navbar-brand,
-  .nav-link,
-  .navbar-text {
-    color: $cream !important;
-  }
-
-  .nav-link:hover,
-  .nav-link:focus {
-    color: $harvest-gold !important;
-  }
-
-  .nav-text {
-    color: $cream !important;
-    opacity: 0.8;
-  }
+:root,
+[data-bs-theme="light"] {
+  --app-code-bg: #F4ECD6;
+  --app-stripe-gap: #1B2A41;
 }
 
-// inline code: cream background, chocolate text
+[data-bs-theme="dark"] {
+  --app-code-bg: #1F2D44;
+  --bs-primary: #7FBFC6;
+  --bs-primary-rgb: 127, 191, 198;
+}
+
+// Navy navbar (navbar-bg in _pkgdown.yml) with cream text and a
+// three band stripe underneath
+.navbar {
+  --bs-navbar-color: rgba(242, 230, 194, 0.85);
+  --bs-navbar-hover-color: #{$gold};
+  --bs-navbar-active-color: #F2E6C2;
+  --bs-navbar-brand-color: #F2E6C2;
+  --bs-navbar-brand-hover-color: #{$gold};
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28242, 230, 194, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --bs-navbar-toggler-border-color: rgba(242, 230, 194, 0.3);
+  color: #F2E6C2;
+  border-bottom: 0;
+  box-shadow:
+    0 3px 0 $gold,
+    0 6px 0 $orange,
+    0 9px 0 $brick;
+  margin-bottom: 9px;
+}
+
+.navbar .nav-text,
+.navbar .text-muted {
+  color: #{$gold} !important;
+}
+
+.navbar .nav-item .nav-link:hover,
+.navbar .nav-item.active .nav-link {
+  background: rgba(242, 230, 194, 0.1);
+}
+
+// Inline code and code blocks
 :not(pre) > code {
-  background-color: $cream;
-  color: $chocolate;
-  padding: 0.15em 0.35em;
+  background-color: var(--app-code-bg);
+  padding: 0.1em 0.35em;
   border-radius: 3px;
 }
 
-// code blocks: cream container; token colors come from arrow-light
 pre {
-  background-color: $cream !important;
-  border-color: rgba($chocolate, 0.15);
+  background-color: var(--app-code-bg) !important;
+  border: 1px solid var(--bs-border-color);
 }
 
 pre code {
@@ -54,55 +63,16 @@ pre code {
   padding: 0;
 }
 
-// burnt orange accent on link hover
 a:hover {
-  color: $burnt-orange;
-  text-decoration-color: $burnt-orange;
+  text-decoration-color: $gold;
+}
+
+h1, h2, h3 {
+  letter-spacing: 0.01em;
 }
 
 // bar model images keep their white background; frame them
 main img {
   border-radius: 6px;
-  border: 1px solid rgba($chocolate, 0.15);
-}
-
-// dark mode ----
-[data-bs-theme="dark"] {
-  --bs-body-bg: #{$midnight-navy};
-  --bs-body-bg-rgb: 27, 42, 65;
-  --bs-body-color: #{$cream};
-  --bs-body-color-rgb: 242, 230, 194;
-  --bs-emphasis-color: #{$cream};
-  --bs-heading-color: #{$harvest-gold};
-  --bs-secondary-color: #{rgba($cream, 0.75)};
-  --bs-tertiary-bg: #{$navy-shade};
-  --bs-border-color: #{rgba($cream, 0.2)};
-  --bs-link-color: #{$harvest-gold};
-  --bs-link-color-rgb: 232, 163, 61;
-  --bs-link-hover-color: #{$cream};
-  --bs-link-hover-color-rgb: 242, 230, 194;
-  --bs-code-color: #{$cream};
-
-  .navbar {
-    background-color: $chocolate !important;
-  }
-
-  :not(pre) > code {
-    background-color: $navy-shade;
-    color: $cream;
-  }
-
-  pre {
-    background-color: $navy-shade !important;
-    border-color: rgba($cream, 0.2);
-  }
-
-  a:hover {
-    color: $cream;
-    text-decoration-color: $cream;
-  }
-
-  main img {
-    border-color: rgba($cream, 0.2);
-  }
+  border: 1px solid var(--bs-border-color);
 }
