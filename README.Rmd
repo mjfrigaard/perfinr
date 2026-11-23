@@ -66,6 +66,29 @@ budget
 
 Together the seven categories claim `r percent_of_income(expense = sum(budget$amount), income = 3200)`% of take home pay, so every dollar has a job.
 
+## Related projects
+
+This package is one of four related projects (highlighted below). The [book](https://github.com/mjfrigaard/fm-finance) teaches each formula; [perfinr](https://github.com/mjfrigaard/perfinr) and [perfinpy](https://github.com/mjfrigaard/perfinpy) hold tested R and Python versions of those functions; [wymr](https://github.com/mjfrigaard/wymr) is a Shiny app-package for the five Foundations chapters that calls perfinr. Dotted lines are checks or planned links.
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'fontFamily': 'monospace', 'darkMode':false, 'lineColor':'#888888', 'edgeLabelBackground':'#FFFFFF'}}}%%
+flowchart TD
+    book(["<strong>fm-finance</strong><br>the book"])
+    perfinr("<strong>perfinr</strong><br>R functions")
+    perfinpy("<strong>perfinpy</strong><br>Python functions")
+    wymr("<strong>wymr</strong><br>Shiny app-package")
+    book -->|"formulas"| perfinr
+    book -->|"formulas"| perfinpy
+    book -->|"Foundations chapters"| wymr
+    perfinr -->|"Imports"| wymr
+    perfinr -.->|"cross check"| perfinpy
+    perfinpy -.->|"planned imports"| book
+    style book fill:#FFFFFF,color:#000000,stroke:#333,stroke-width:1px,rx:5,ry:5
+    style perfinr fill:#4CBB9D,color:#FFFFFF,stroke:#333,stroke-width:2px,rx:5,ry:5
+    style perfinpy fill:#FFFFFF,color:#000000,stroke:#333,stroke-width:1px,rx:5,ry:5
+    style wymr fill:#FFFFFF,color:#000000,stroke:#333,stroke-width:1px,rx:5,ry:5
+```
+
 ## Conventions
 
 The functions keep the names, arguments, and defaults from the book, so code from a chapter runs unchanged after `library(perfinr)`. A few rules hold across the whole package:
