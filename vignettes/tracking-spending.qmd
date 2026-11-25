@@ -188,6 +188,20 @@ percent_of_income(expense = sum(audit$monthly), income = paycheck)
 
 Subscriptions take about `r round(percent_of_income(sum(audit$monthly), paycheck), 1)`% of the paycheck. As in the rest of perfinr, the ratio comes out as a percent, not a decimal (see the conventions in [perfinr](perfinr.html)). The gym membership alone accounts for $`r formatC(audit$cost_30[audit$Description == "24 Hour Fitness"], format = "f", digits = 0, big.mark = ",")` of the `r years` year total. That makes it the first one to check against the book's audit question: have you used it in the last 30 days?
 
+## Call stack
+
+`subscription_opportunity_cost()` uses the same internal helper as `wealth_formula()` in [Income](income.html). The tree below comes from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/). `call_tree_dir()` parses the files in `R/` without running them. `apply_rules()` calls no other perfinr functions, so it has no tree.
+
+```{r}
+#| label: call-stack-subscription-opportunity-cost
+#| eval: !expr requireNamespace("stackcallr", quietly = TRUE)
+#| collapse: false
+#| comment: ""
+stackcallr::call_tree_dir("../R", root = "subscription_opportunity_cost")
+```
+
+`annuity_factor()` gives the future value of \$1 saved each year. When `rate` is 0, it returns the number of years.
+
 ## Recap
 
 `apply_rules()` turns a bank export into categorized spending with a small, stable table of keyword patterns, and anything new falls through to `"Other"`. `subscription_opportunity_cost()` puts a price on recurring charges by showing what the money would grow to if invested. Together they cover the recording side of personal finance, which feeds the allocation decisions in [Budgeting](budgeting.html).

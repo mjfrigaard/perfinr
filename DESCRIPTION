@@ -17,7 +17,10 @@ Suggests:
     ggplot2,
     knitr,
     quarto,
+    stackcallr,
     testthat (>= 3.0.0)
+Remotes:
+    mjfrigaard/stackcallr
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.1.1
 VignetteBuilder: quarto

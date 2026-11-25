@@ -200,6 +200,20 @@ data.frame(
 
 Saving $`r plan_monthly` a month takes `r round(plan_share, 1)`% of the paycheck. Feeding that contribution back into `months_to_ef_goal()` returns `r plan_months` months, which confirms the plan meets the deadline. Once the fund is full, a year in a HYSA adds $`r round(plan_interest)` without any new deposits. [Automating Savings](automating-savings.html) covers setting up the monthly transfer, and [High-Yield Savings Accounts](high-yield-accounts.html) covers choosing the account.
 
+## Call stack
+
+`months_to_ef_goal()` checks its inputs before it counts months. The tree below comes from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/). `call_tree_dir()` parses the files in `R/` without running them.
+
+```{r}
+#| label: call-stack-months-to-ef-goal
+#| eval: !expr requireNamespace("stackcallr", quietly = TRUE)
+#| collapse: false
+#| comment: ""
+stackcallr::call_tree_dir("../R", root = "months_to_ef_goal")
+```
+
+`check_positive()` keeps `monthly_contribution` above 0, so the division can't return `Inf`.
+
 ## Recap
 
 An emergency fund comes down to four numbers. They are the target, the months to reach it, the monthly amount a deadline requires, and the interest earned along the way. `emergency_fund_target()`, `months_to_ef_goal()`, `monthly_contribution_needed()`, and `ef_growth()` compute each one. All four accept vectors, so comparing contributions or deadlines takes a single call.

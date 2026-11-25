@@ -187,6 +187,20 @@ coffee_invested
 
 One year of \$5 coffees could grow to about \$`r format(round(coffee_invested), big.mark = ",")`. That doesn't mean you should give up coffee; it means the choice now has a price you can see. The [Tracking Spending](tracking-spending.html) vignette applies the same idea to recurring costs with `subscription_opportunity_cost()`.
 
+## Call stack
+
+`percent_of_income()` checks both inputs before it divides. The tree below comes from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/). `call_tree_dir()` parses the files in `R/` without running them.
+
+```{r}
+#| label: call-stack-percent-of-income
+#| eval: !expr requireNamespace("stackcallr", quietly = TRUE)
+#| collapse: false
+#| comment: ""
+stackcallr::call_tree_dir("../R", root = "percent_of_income")
+```
+
+`check_positive()` calls `check_numeric()` first, so `income` must be a number before it can be greater than 0.
+
 ## Recap
 
 Budgeting math is middle school math, and these five functions cover the calculations the chapter relies on most. `percent_of_income()` shows how big a slice each expense takes, `to_annual()` and `to_monthly()` put costs on the same time scale, and `opportunity_cost()` and `months_to_break_even()` put a price on spending decisions. Because each one is vectorized, a single call can compare a whole budget, a list of periodic expenses, or several time horizons.

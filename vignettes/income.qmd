@@ -228,6 +228,18 @@ c(monthly = monthly_value, yearly = yearly_value)
 
 The same dollars come out about \$`r formatC(round(monthly_value - yearly_value), format = "d", big.mark = ",")` ahead when they're invested every month. Each monthly deposit starts growing sooner, which is one more reason to automate the transfer the day the raise arrives.
 
+## Call stack
+
+`wealth_formula()` checks its inputs and passes the rate and years to an internal helper, `annuity_factor()`. The tree below comes from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/). `call_tree_dir()` parses the files in `R/` without running them. `wealth_formula()` has an argument named `savings_rate`, which shares a name with the `savings_rate()` function. `call_tree_dir()` reads that name as a call, so `prune` drops it from the tree.
+
+```{r}
+#| label: call-stack-wealth-formula
+#| eval: !expr requireNamespace("stackcallr", quietly = TRUE)
+#| collapse: false
+#| comment: ""
+stackcallr::call_tree_dir("../R", root = "wealth_formula", prune = "savings_rate")
+```
+
 ## Recap
 
 `wealth_formula()` and `raise_invested_value()` show how a steady deposit turns into a balance that is mostly growth. Time does more of the work than the deposits do. `fixed_cost_ratio()` tells you how much of each paycheck is committed before you spend anything, and returns a percent you can compare against the `r ceiling_pct`% ceiling. `pay_periods_per_year()` turns a single paycheck into a yearly income. Together they make the chapter's advice measurable: keep fixed costs low, and invest part of every raise before your lifestyle absorbs it.
