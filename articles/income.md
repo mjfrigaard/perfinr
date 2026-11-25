@@ -341,15 +341,10 @@ checks its inputs and passes the rate and years to an internal helper,
 `annuity_factor()`. The tree below comes from
 [`stackcallr`](https://mjfrigaard.github.io/stackcallr/).
 `call_tree_dir()` parses the files in `R/` without running them.
-[`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md)
-has an argument named `savings_rate`, which shares a name with the
-[`savings_rate()`](https://mjfrigaard.github.io/perfinr/reference/savings_rate.md)
-function. `call_tree_dir()` reads that name as a call, so `prune` drops
-it from the tree.
 
 ``` r
 
-stackcallr::call_tree_dir("../R", root = "wealth_formula", prune = "savings_rate")
+stackcallr::call_tree_dir("../R", root = "wealth_formula")
 ```
 
     █─wealth_formula
