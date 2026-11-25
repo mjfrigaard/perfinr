@@ -230,14 +230,14 @@ The same dollars come out about \$`r formatC(round(monthly_value - yearly_value)
 
 ## Call stack
 
-`wealth_formula()` checks its inputs and passes the rate and years to an internal helper, `annuity_factor()`. The tree below comes from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/). `call_tree_dir()` parses the files in `R/` without running them. `wealth_formula()` has an argument named `savings_rate`, which shares a name with the `savings_rate()` function. `call_tree_dir()` reads that name as a call, so `prune` drops it from the tree.
+`wealth_formula()` checks its inputs and passes the rate and years to an internal helper, `annuity_factor()`. The tree below comes from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/). `call_tree_dir()` parses the files in `R/` without running them.
 
 ```{r}
 #| label: call-stack-wealth-formula
 #| eval: !expr requireNamespace("stackcallr", quietly = TRUE)
 #| collapse: false
 #| comment: ""
-stackcallr::call_tree_dir("../R", root = "wealth_formula", prune = "savings_rate")
+stackcallr::call_tree_dir("../R", root = "wealth_formula")
 ```
 
 ## Recap
