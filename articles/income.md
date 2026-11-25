@@ -334,6 +334,28 @@ The same dollars come out about \$10,217 ahead when they’re invested
 every month. Each monthly deposit starts growing sooner, which is one
 more reason to automate the transfer the day the raise arrives.
 
+## Call stack
+
+[`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md)
+checks its inputs and passes the rate and years to an internal helper,
+`annuity_factor()`. The tree below comes from
+[`stackcallr`](https://mjfrigaard.github.io/stackcallr/).
+`call_tree_dir()` parses the files in `R/` without running them.
+[`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md)
+has an argument named `savings_rate`, which shares a name with the
+[`savings_rate()`](https://mjfrigaard.github.io/perfinr/reference/savings_rate.md)
+function. `call_tree_dir()` reads that name as a call, so `prune` drops
+it from the tree.
+
+``` r
+
+stackcallr::call_tree_dir("../R", root = "wealth_formula", prune = "savings_rate")
+```
+
+    █─wealth_formula
+    ├─check_numeric
+    └─annuity_factor
+
 ## Recap
 
 [`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md)

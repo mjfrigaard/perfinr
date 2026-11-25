@@ -619,33 +619,26 @@ doesn’t repeat the amortization formula. It passes its arguments to
 (from the [Major
 Purchases](https://mjfrigaard.github.io/perfinr/articles/major-purchases.md)
 vignette), which checks its inputs and calls an internal helper,
-`annuity_factor()`:
+`annuity_factor()`.
+
+The tree below comes from
+[`stackcallr`](https://mjfrigaard.github.io/stackcallr/).
+`call_tree_dir()` parses the files in `R/` without running them. A
+function called more than once (like `check_numeric()` in
+[`mortgage_payment()`](https://mjfrigaard.github.io/perfinr/reference/mortgage_payment.md))
+appears once.
 
 ``` r
 
-lobstr::ast(
-  monthly_standard_payment(
-    mortgage_payment(
-      check_numeric(),
-      check_numeric(),
-      check_positive(
-        check_numeric()
-      ),
-      annuity_factor()
-    )
-  )
-)
+stackcallr::call_tree_dir("../R", root = "monthly_standard_payment")
 ```
 
-``` default
-█─monthly_standard_payment
-└─█─mortgage_payment
-  ├─█─check_numeric
-  ├─█─check_numeric
-  ├─█─check_positive
-  │ └─█─check_numeric
-  └─█─annuity_factor
-```
+    █─monthly_standard_payment
+    └─█─mortgage_payment
+      ├─check_numeric
+      ├─█─check_positive
+      │ └─check_numeric
+      └─annuity_factor
 
 `annuity_factor()` is where the 0% case lives. Instead of dividing by
 zero, it returns the number of payments, so a 0% loan is just the

@@ -297,6 +297,20 @@
 <span><span class="co">#&gt; 5   first year of interest  384.0</span></span></code></pre></div>
 </div>
 <p>Saving $467 a month takes 14.6% of the paycheck. Feeding that contribution back into <code><a href="../reference/months_to_ef_goal.html">months_to_ef_goal()</a></code> returns 18 months, which confirms the plan meets the deadline. Once the fund is full, a year in a HYSA adds $384 without any new deposits. <a href="automating-savings.html">Automating Savings</a> covers setting up the monthly transfer, and <a href="high-yield-accounts.html">High-Yield Savings Accounts</a> covers choosing the account.</p>
+</section><section class="level2"><h2 id="call-stack">Call stack<a class="anchor" aria-label="anchor" href="#call-stack"></a>
+</h2>
+<p><code><a href="../reference/months_to_ef_goal.html">months_to_ef_goal()</a></code> checks its inputs before it counts months. The tree below comes from <a href="https://mjfrigaard.github.io/stackcallr/" class="external-link"><code>stackcallr</code></a>. <code>call_tree_dir()</code> parses the files in <code>R/</code> without running them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">stackcallr</span><span class="fu">::</span><span class="fu"><a href="https://mjfrigaard.github.io/stackcallr/reference/call_tree_dir.html" class="external-link">call_tree_dir</a></span><span class="op">(</span><span class="st">"../R"</span>, root <span class="op">=</span> <span class="st">"months_to_ef_goal"</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>█─months_to_ef_goal
+├─check_numeric
+└─█─check_positive
+  └─check_numeric</code></pre>
+</div>
+</div>
+<p><code>check_positive()</code> keeps <code>monthly_contribution</code> above 0, so the division can’t return <code>Inf</code>.</p>
 </section><section class="level2"><h2 id="recap">Recap<a class="anchor" aria-label="anchor" href="#recap"></a>
 </h2>
 <p>An emergency fund comes down to four numbers. They are the target, the months to reach it, the monthly amount a deadline requires, and the interest earned along the way. <code><a href="../reference/emergency_fund_target.html">emergency_fund_target()</a></code>, <code><a href="../reference/months_to_ef_goal.html">months_to_ef_goal()</a></code>, <code><a href="../reference/monthly_contribution_needed.html">monthly_contribution_needed()</a></code>, and <code><a href="../reference/ef_growth.html">ef_growth()</a></code> compute each one. All four accept vectors, so comparing contributions or deadlines takes a single call.</p>

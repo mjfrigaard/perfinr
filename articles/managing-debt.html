@@ -485,30 +485,19 @@
 <p>The card is gone in 10 months. After that, its $100 can roll into the car loan. The student loan comparison is closer than the function’s answer suggests. The edge is only 0.5 percentage points, and the chapter treats loans above about 6% as worth paying down. The book’s <a href="https://mjfrigaard.github.io/fm-finance/budgeting.html#sec-foo-intro" class="external-link">Budgeting</a> chapter places these steps in the Financial Order of Operations. The <a href="emergency-fund.html">Emergency Fund</a> vignette covers the reserve that comes after high interest debt.</p>
 </section><section class="level2"><h2 id="how-monthly_standard_payment-works">How <code>monthly_standard_payment()</code> works<a class="anchor" aria-label="anchor" href="#how-monthly_standard_payment-works"></a>
 </h2>
-<p><code><a href="../reference/monthly_standard_payment.html">monthly_standard_payment()</a></code> doesn’t repeat the amortization formula. It passes its arguments to <code><a href="../reference/mortgage_payment.html">mortgage_payment()</a></code> (from the <a href="major-purchases.html">Major Purchases</a> vignette), which checks its inputs and calls an internal helper, <code>annuity_factor()</code>:</p>
+<p><code><a href="../reference/monthly_standard_payment.html">monthly_standard_payment()</a></code> doesn’t repeat the amortization formula. It passes its arguments to <code><a href="../reference/mortgage_payment.html">mortgage_payment()</a></code> (from the <a href="major-purchases.html">Major Purchases</a> vignette), which checks its inputs and calls an internal helper, <code>annuity_factor()</code>.</p>
+<p>The tree below comes from <a href="https://mjfrigaard.github.io/stackcallr/" class="external-link"><code>stackcallr</code></a>. <code>call_tree_dir()</code> parses the files in <code>R/</code> without running them. A function called more than once (like <code>check_numeric()</code> in <code><a href="../reference/mortgage_payment.html">mortgage_payment()</a></code>) appears once.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">ast</span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/monthly_standard_payment.html">monthly_standard_payment</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/mortgage_payment.html">mortgage_payment</a></span><span class="op">(</span></span>
-<span>      <span class="fu">check_numeric</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>      <span class="fu">check_numeric</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>      <span class="fu">check_positive</span><span class="op">(</span></span>
-<span>        <span class="fu">check_numeric</span><span class="op">(</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu">annuity_factor</span><span class="op">(</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">stackcallr</span><span class="fu">::</span><span class="fu"><a href="https://mjfrigaard.github.io/stackcallr/reference/call_tree_dir.html" class="external-link">call_tree_dir</a></span><span class="op">(</span><span class="st">"../R"</span>, root <span class="op">=</span> <span class="st">"monthly_standard_payment"</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>█─monthly_standard_payment
+└─█─mortgage_payment
+  ├─check_numeric
+  ├─█─check_positive
+  │ └─check_numeric
+  └─annuity_factor</code></pre>
 </div>
-<div style="font-style: italic;">
-<div class="sourceCode" id="cb20"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>█─monthly_standard_payment</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>└─█─mortgage_payment</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  ├─█─check_numeric</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  ├─█─check_numeric</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  ├─█─check_positive</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  │ └─█─check_numeric</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  └─█─annuity_factor</span></code></pre></div>
 </div>
 <p><code>annuity_factor()</code> is where the 0% case lives. Instead of dividing by zero, it returns the number of payments, so a 0% loan is just the principal split into equal pieces:</p>
 <div class="cell">

@@ -298,6 +298,19 @@
 <span><span class="co">#&gt; [1] 3.49875</span></span></code></pre></div>
 </div>
 <p>Subscriptions take about 3.5% of the paycheck. As in the rest of perfinr, the ratio comes out as a percent, not a decimal (see the conventions in <a href="perfinr.html">perfinr</a>). The gym membership alone accounts for $45,330 of the 30 year total. That makes it the first one to check against the book’s audit question: have you used it in the last 30 days?</p>
+</section><section class="level2"><h2 id="call-stack">Call stack<a class="anchor" aria-label="anchor" href="#call-stack"></a>
+</h2>
+<p><code><a href="../reference/subscription_opportunity_cost.html">subscription_opportunity_cost()</a></code> uses the same internal helper as <code><a href="../reference/wealth_formula.html">wealth_formula()</a></code> in <a href="income.html">Income</a>. The tree below comes from <a href="https://mjfrigaard.github.io/stackcallr/" class="external-link"><code>stackcallr</code></a>. <code>call_tree_dir()</code> parses the files in <code>R/</code> without running them. <code><a href="../reference/apply_rules.html">apply_rules()</a></code> calls no other perfinr functions, so it has no tree.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">stackcallr</span><span class="fu">::</span><span class="fu"><a href="https://mjfrigaard.github.io/stackcallr/reference/call_tree_dir.html" class="external-link">call_tree_dir</a></span><span class="op">(</span><span class="st">"../R"</span>, root <span class="op">=</span> <span class="st">"subscription_opportunity_cost"</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>█─subscription_opportunity_cost
+├─check_numeric
+└─annuity_factor</code></pre>
+</div>
+</div>
+<p><code>annuity_factor()</code> gives the future value of $1 saved each year. When <code>rate</code> is 0, it returns the number of years.</p>
 </section><section class="level2"><h2 id="recap">Recap<a class="anchor" aria-label="anchor" href="#recap"></a>
 </h2>
 <p><code><a href="../reference/apply_rules.html">apply_rules()</a></code> turns a bank export into categorized spending with a small, stable table of keyword patterns, and anything new falls through to <code>"Other"</code>. <code><a href="../reference/subscription_opportunity_cost.html">subscription_opportunity_cost()</a></code> puts a price on recurring charges by showing what the money would grow to if invested. Together they cover the recording side of personal finance, which feeds the allocation decisions in <a href="budgeting.html">Budgeting</a>.</p>

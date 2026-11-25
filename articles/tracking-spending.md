@@ -293,6 +293,30 @@ The gym membership alone accounts for \$45,330 of the 30 year total.
 That makes it the first one to check against the book’s audit question:
 have you used it in the last 30 days?
 
+## Call stack
+
+[`subscription_opportunity_cost()`](https://mjfrigaard.github.io/perfinr/reference/subscription_opportunity_cost.md)
+uses the same internal helper as
+[`wealth_formula()`](https://mjfrigaard.github.io/perfinr/reference/wealth_formula.md)
+in [Income](https://mjfrigaard.github.io/perfinr/articles/income.md).
+The tree below comes from
+[`stackcallr`](https://mjfrigaard.github.io/stackcallr/).
+`call_tree_dir()` parses the files in `R/` without running them.
+[`apply_rules()`](https://mjfrigaard.github.io/perfinr/reference/apply_rules.md)
+calls no other perfinr functions, so it has no tree.
+
+``` r
+
+stackcallr::call_tree_dir("../R", root = "subscription_opportunity_cost")
+```
+
+    █─subscription_opportunity_cost
+    ├─check_numeric
+    └─annuity_factor
+
+`annuity_factor()` gives the future value of \$1 saved each year. When
+`rate` is 0, it returns the number of years.
+
 ## Recap
 
 [`apply_rules()`](https://mjfrigaard.github.io/perfinr/reference/apply_rules.md)

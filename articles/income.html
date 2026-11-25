@@ -318,6 +318,18 @@
 <span><span class="co">#&gt; 162014.3 151797.7</span></span></code></pre></div>
 </div>
 <p>The same dollars come out about $10,217 ahead when they’re invested every month. Each monthly deposit starts growing sooner, which is one more reason to automate the transfer the day the raise arrives.</p>
+</section><section class="level2"><h2 id="call-stack">Call stack<a class="anchor" aria-label="anchor" href="#call-stack"></a>
+</h2>
+<p><code><a href="../reference/wealth_formula.html">wealth_formula()</a></code> checks its inputs and passes the rate and years to an internal helper, <code>annuity_factor()</code>. The tree below comes from <a href="https://mjfrigaard.github.io/stackcallr/" class="external-link"><code>stackcallr</code></a>. <code>call_tree_dir()</code> parses the files in <code>R/</code> without running them. <code><a href="../reference/wealth_formula.html">wealth_formula()</a></code> has an argument named <code>savings_rate</code>, which shares a name with the <code><a href="../reference/savings_rate.html">savings_rate()</a></code> function. <code>call_tree_dir()</code> reads that name as a call, so <code>prune</code> drops it from the tree.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">stackcallr</span><span class="fu">::</span><span class="fu"><a href="https://mjfrigaard.github.io/stackcallr/reference/call_tree_dir.html" class="external-link">call_tree_dir</a></span><span class="op">(</span><span class="st">"../R"</span>, root <span class="op">=</span> <span class="st">"wealth_formula"</span>, prune <span class="op">=</span> <span class="st">"savings_rate"</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>█─wealth_formula
+├─check_numeric
+└─annuity_factor</code></pre>
+</div>
+</div>
 </section><section class="level2"><h2 id="recap">Recap<a class="anchor" aria-label="anchor" href="#recap"></a>
 </h2>
 <p><code><a href="../reference/wealth_formula.html">wealth_formula()</a></code> and <code><a href="../reference/raise_invested_value.html">raise_invested_value()</a></code> show how a steady deposit turns into a balance that is mostly growth. Time does more of the work than the deposits do. <code><a href="../reference/fixed_cost_ratio.html">fixed_cost_ratio()</a></code> tells you how much of each paycheck is committed before you spend anything, and returns a percent you can compare against the 60% ceiling. <code><a href="../reference/pay_periods_per_year.html">pay_periods_per_year()</a></code> turns a single paycheck into a yearly income. Together they make the chapter’s advice measurable: keep fixed costs low, and invest part of every raise before your lifestyle absorbs it.</p>

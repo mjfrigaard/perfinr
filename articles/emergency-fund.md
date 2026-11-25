@@ -315,6 +315,26 @@ covers setting up the monthly transfer, and [High-Yield Savings
 Accounts](https://mjfrigaard.github.io/perfinr/articles/high-yield-accounts.md)
 covers choosing the account.
 
+## Call stack
+
+[`months_to_ef_goal()`](https://mjfrigaard.github.io/perfinr/reference/months_to_ef_goal.md)
+checks its inputs before it counts months. The tree below comes from
+[`stackcallr`](https://mjfrigaard.github.io/stackcallr/).
+`call_tree_dir()` parses the files in `R/` without running them.
+
+``` r
+
+stackcallr::call_tree_dir("../R", root = "months_to_ef_goal")
+```
+
+    █─months_to_ef_goal
+    ├─check_numeric
+    └─█─check_positive
+      └─check_numeric
+
+`check_positive()` keeps `monthly_contribution` above 0, so the division
+can’t return `Inf`.
+
 ## Recap
 
 An emergency fund comes down to four numbers. They are the target, the

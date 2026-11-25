@@ -288,6 +288,20 @@
 <span><span class="co">#&gt; [1] 13892.37</span></span></code></pre></div>
 </div>
 <p>One year of $5 coffees could grow to about $13,892. That doesn’t mean you should give up coffee; it means the choice now has a price you can see. The <a href="tracking-spending.html">Tracking Spending</a> vignette applies the same idea to recurring costs with <code><a href="../reference/subscription_opportunity_cost.html">subscription_opportunity_cost()</a></code>.</p>
+</section><section class="level2"><h2 id="call-stack">Call stack<a class="anchor" aria-label="anchor" href="#call-stack"></a>
+</h2>
+<p><code><a href="../reference/percent_of_income.html">percent_of_income()</a></code> checks both inputs before it divides. The tree below comes from <a href="https://mjfrigaard.github.io/stackcallr/" class="external-link"><code>stackcallr</code></a>. <code>call_tree_dir()</code> parses the files in <code>R/</code> without running them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">stackcallr</span><span class="fu">::</span><span class="fu"><a href="https://mjfrigaard.github.io/stackcallr/reference/call_tree_dir.html" class="external-link">call_tree_dir</a></span><span class="op">(</span><span class="st">"../R"</span>, root <span class="op">=</span> <span class="st">"percent_of_income"</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>█─percent_of_income
+├─check_numeric
+└─█─check_positive
+  └─check_numeric</code></pre>
+</div>
+</div>
+<p><code>check_positive()</code> calls <code>check_numeric()</code> first, so <code>income</code> must be a number before it can be greater than 0.</p>
 </section><section class="level2"><h2 id="recap">Recap<a class="anchor" aria-label="anchor" href="#recap"></a>
 </h2>
 <p>Budgeting math is middle school math, and these five functions cover the calculations the chapter relies on most. <code><a href="../reference/percent_of_income.html">percent_of_income()</a></code> shows how big a slice each expense takes, <code><a href="../reference/to_annual.html">to_annual()</a></code> and <code><a href="../reference/to_monthly.html">to_monthly()</a></code> put costs on the same time scale, and <code><a href="../reference/opportunity_cost.html">opportunity_cost()</a></code> and <code><a href="../reference/months_to_break_even.html">months_to_break_even()</a></code> put a price on spending decisions. Because each one is vectorized, a single call can compare a whole budget, a list of periodic expenses, or several time horizons.</p>

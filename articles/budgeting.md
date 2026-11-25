@@ -305,6 +305,26 @@ Spending](https://mjfrigaard.github.io/perfinr/articles/tracking-spending.md)
 vignette applies the same idea to recurring costs with
 [`subscription_opportunity_cost()`](https://mjfrigaard.github.io/perfinr/reference/subscription_opportunity_cost.md).
 
+## Call stack
+
+[`percent_of_income()`](https://mjfrigaard.github.io/perfinr/reference/percent_of_income.md)
+checks both inputs before it divides. The tree below comes from
+[`stackcallr`](https://mjfrigaard.github.io/stackcallr/).
+`call_tree_dir()` parses the files in `R/` without running them.
+
+``` r
+
+stackcallr::call_tree_dir("../R", root = "percent_of_income")
+```
+
+    █─percent_of_income
+    ├─check_numeric
+    └─█─check_positive
+      └─check_numeric
+
+`check_positive()` calls `check_numeric()` first, so `income` must be a
+number before it can be greater than 0.
+
 ## Recap
 
 Budgeting math is middle school math, and these five functions cover the
